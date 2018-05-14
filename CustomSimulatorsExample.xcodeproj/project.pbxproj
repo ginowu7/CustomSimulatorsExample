@@ -267,7 +267,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "custom_sim=`xcrun simctl list | grep 'Custom Simulators' | awk -F'[()]' '{print $2}'`\nif [ ! -z \"${custom_sim}\" ] && [ \"${TARGET_DEVICE_IDENTIFIER}\" = \"${custom_sim}\" ]; then\n/bin/sh launch_multiple_simulators.sh\nfi";
+			shellScript = "custom_sim=`xcrun simctl list | grep 'Custom Simulators' | awk -F'[()]' '{print $2}'`\nif [ -z \"${custom_sim}\" ]; then\n    xcrun simctl create Custom\\ Simulators com.apple.CoreSimulator.SimDeviceType.iPhone-X `xcrun simctl list runtimes | grep iOS | tail -1 | sed -e 's/^.*) - //p' | sort -u`\nfi";
 		};
 /* End PBXShellScriptBuildPhase section */
 
